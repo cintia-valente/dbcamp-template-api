@@ -1,4 +1,4 @@
-package com.template;
+package br.tec.db.dbcampweatherapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
