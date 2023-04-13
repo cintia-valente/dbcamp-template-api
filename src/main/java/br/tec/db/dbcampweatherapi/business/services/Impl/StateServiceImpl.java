@@ -17,8 +17,7 @@ public class StateServiceImpl implements StateService {
         this.stateRepository = stateRepository;
     }
 
-    @Override
-    public List<State> findAllState() {
+    public List<State> findAll() {
         return stateRepository.findAll();
     }
 }
