@@ -1,0 +1,1 @@
+CREATE INDEX city_weather_date_list_city_id_idx ON city_weather_date_list (city_id);
