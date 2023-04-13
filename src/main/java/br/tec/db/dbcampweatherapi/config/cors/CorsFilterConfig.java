@@ -1,4 +1,4 @@
-package com.template.config.cors;
+package br.tec.db.dbcampweatherapi.config.cors;
 
 //import io.swagger.models.HttpMethod;
 import org.springframework.context.annotation.Configuration;
