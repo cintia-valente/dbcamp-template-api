@@ -29,9 +29,11 @@ public class CityWeatherDateList {
     @Column(name = "date", nullable = false)
     private LocalDate date;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "daytime_enum", nullable = false)
     DaytimeEnum daytimeEnum;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "nighttime_enum", nullable = false)
     NighttimeEnum nighttimeEnum;
 
