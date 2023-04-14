@@ -18,7 +18,6 @@ public class City {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore // TODO excluir anotação e retirar o campo no DTO (record)
     @Column(name = "city_id")
     private Long cityId;
 
@@ -29,7 +28,7 @@ public class City {
     @Column(name = "state")
     private String state;
 
-    @JsonIgnore
+    @JsonIgnore // TODO excluir anotação e retirar o campo no DTO (record) ;
     @OneToMany(mappedBy = "city",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
