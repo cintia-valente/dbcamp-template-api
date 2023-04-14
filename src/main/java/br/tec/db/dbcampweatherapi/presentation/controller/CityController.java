@@ -21,7 +21,14 @@ public class CityController {
     }
 
     @GetMapping("/{state}/all-cities")
-    public List<City> findAllCityByStateIgnoreCase(@PathVariable String state) {
-        return cityService.findAllCityByStateIgnoreCase(state);
+    public List<City> findAllNameByStateIgnoreCase(@PathVariable String state) {
+
+        return cityService.findAllNameByStateIgnoreCase(state);
+    }
+
+    @GetMapping("/all")
+    public List<City> findAll() {
+
+        return cityService.findAll();
     }
 }

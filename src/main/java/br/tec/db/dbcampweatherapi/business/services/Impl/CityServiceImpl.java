@@ -19,7 +19,12 @@ public class CityServiceImpl implements CityService {
     }
 
     @Override
-    public List<City> findAllCityByStateIgnoreCase(String state) {
-        return cityRepository.findAllCityByStateIgnoreCase(state);
+    public List<City> findAll() {
+        return cityRepository.findAll();
+    }
+
+    @Override
+    public List<City> findAllNameByStateIgnoreCase(String state) {
+        return cityRepository.findAllNameByStateIgnoreCase(state);
     }
 }

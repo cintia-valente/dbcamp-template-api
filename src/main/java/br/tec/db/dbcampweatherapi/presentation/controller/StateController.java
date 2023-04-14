@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/weather/states")
-
 public class StateController {
 
     StateServiceImpl stateServiceImpl;

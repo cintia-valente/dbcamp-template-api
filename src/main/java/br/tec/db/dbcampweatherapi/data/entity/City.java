@@ -29,9 +29,9 @@ public class City {
     @Column(name = "state")
     private String state;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "city",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     List<CityWeatherDateList> weatherDateLists = new ArrayList<>();
-
 }

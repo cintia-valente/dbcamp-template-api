@@ -7,8 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface CityRepository extends JpaRepository<City, String> {
+public interface CityRepository extends JpaRepository<City, Long> {
+
     List<City> findByState(String state);
 
-    List<City> findAllCityByStateIgnoreCase(String state);
+    List<City> findAllNameByStateIgnoreCase(String state);
 }
