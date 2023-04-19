@@ -1,25 +1,23 @@
 package br.tec.db.dbcampweatherapi.data.entity;
 
-import java.time.LocalDate;
-import java.util.UUID;
-
 import br.tec.db.dbcampweatherapi.data.entity.enums.DaytimeEnum;
 import br.tec.db.dbcampweatherapi.data.entity.enums.NighttimeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity(name = "city_weather_date_list")
-@EqualsAndHashCode(of = {"weatherId", "city"})
 public class CityWeatherDateList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID weatherId;
 
     @ManyToOne
