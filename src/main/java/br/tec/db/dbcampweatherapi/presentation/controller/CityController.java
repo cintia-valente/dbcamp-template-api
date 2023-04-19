@@ -1,7 +1,7 @@
 package br.tec.db.dbcampweatherapi.presentation.controller;
 
 import br.tec.db.dbcampweatherapi.business.services.Impl.CityServiceImpl;
-import br.tec.db.dbcampweatherapi.data.entity.City;
+import br.tec.db.dbcampweatherapi.data.entity.DTO.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,20 +15,16 @@ import java.util.List;
 public class CityController {
     CityServiceImpl cityService;
 
+
     @Autowired
     public CityController(CityServiceImpl cityService) {
         this.cityService = cityService;
     }
 
     @GetMapping("/{state}/all-cities")
-    public List<City> findAllNameByStateIgnoreCase(@PathVariable String state) {
+    public List<CityDTO> findAllNameByStateIgnoreCase(@PathVariable String state) {
 
         return cityService.findAllNameByStateIgnoreCase(state);
     }
 
-    @GetMapping("/all")
-    public List<City> findAll() {
-
-        return cityService.findAll();
-    }
 }
