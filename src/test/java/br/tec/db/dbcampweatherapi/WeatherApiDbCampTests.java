@@ -4,10 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TemplateApplicationTests {
+class WeatherApiDbCampTests {
 
 	@Test
 	void contextLoads() {
+		WeatherApiDbCamp.main(new String[] {});
 	}
 
 }
