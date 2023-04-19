@@ -1,11 +1,10 @@
 package br.tec.db.dbcampweatherapi.presentation.controller;
 
 import br.tec.db.dbcampweatherapi.business.services.Impl.CityWeatherDateListServiceImpl;
-import br.tec.db.dbcampweatherapi.data.entity.CityWeatherDateList;
+import br.tec.db.dbcampweatherapi.data.entity.DTO.CityWeatherDateListDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +20,15 @@ public class CityWeatherDateListController {
     }
 
     @GetMapping("/list-all")
-    public List<CityWeatherDateList> findAll(){
+    public List<CityWeatherDateListDTO> findAll(){
+
         return cityWeatherDateListService.findAll();
+    }
+
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
+    public CityWeatherDateListDTO create(@RequestBody CityWeatherDateListDTO cityWeatherDateListDTO){
+
+        return cityWeatherDateListService.save(cityWeatherDateListDTO);
     }
 }
