@@ -1,9 +1,9 @@
 package br.tec.db.dbcampweatherapi.business.services;
 
-import br.tec.db.dbcampweatherapi.data.entity.State;
+import br.tec.db.dbcampweatherapi.data.entity.DTO.StateDTO;
 
 import java.util.List;
 
 public interface StateService {
-    List<State> findAll();
+    List<StateDTO> findAll();
 }

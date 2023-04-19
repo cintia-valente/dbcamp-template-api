@@ -1,9 +1,8 @@
 package br.tec.db.dbcampweatherapi.presentation.controller;
 
 import br.tec.db.dbcampweatherapi.business.services.Impl.StateServiceImpl;
-import br.tec.db.dbcampweatherapi.data.entity.State;
+import br.tec.db.dbcampweatherapi.data.entity.DTO.StateDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +21,7 @@ public class StateController {
     }
 
     @GetMapping("/all")
-    public List<State> findAllState() {
+    public  List<StateDTO> findAllState() {
 
         return stateServiceImpl.findAll();
     }
