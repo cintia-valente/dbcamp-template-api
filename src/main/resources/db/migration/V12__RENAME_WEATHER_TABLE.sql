@@ -1,0 +1,1 @@
+ALTER TABLE city_weather_date_list RENAME TO city_weather_date;

@@ -1,6 +1,7 @@
 package br.tec.db.dbcampweatherapi.data.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class City {
     @Column(name = "city_id")
     private Long cityId;
 
+    @NotNull
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -27,5 +29,5 @@ public class City {
     @OneToMany(mappedBy = "city",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    List<CityWeatherDateList> weatherDateLists = new ArrayList<>();
+    List<CityWeatherDate> weatherDateLists = new ArrayList<>();
 }
