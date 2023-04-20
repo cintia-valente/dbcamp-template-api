@@ -10,6 +10,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class StateDTO {
 
-    @Id
     private String state;
 }

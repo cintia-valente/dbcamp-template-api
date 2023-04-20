@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class CityDTO {
 
-    @Id
     private Long cityId;
 
     private String name;

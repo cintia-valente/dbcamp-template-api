@@ -3,10 +3,8 @@ package br.tec.db.dbcampweatherapi.presentation.controller;
 import br.tec.db.dbcampweatherapi.business.services.Impl.CityServiceImpl;
 import br.tec.db.dbcampweatherapi.data.entity.DTO.CityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +19,7 @@ public class CityController {
         this.cityService = cityService;
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @GetMapping("/{state}/all-cities")
     public List<CityDTO> findAllNameByStateIgnoreCase(@PathVariable String state) {
 
