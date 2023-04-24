@@ -19,32 +19,23 @@ public class CityWeatherDateDTO {
 
     private UUID weatherId;
 
-    @NotBlank
     private CityDTO city;
 
-    @NotBlank
     private LocalDate date;
 
-    @NotBlank
     @Enumerated(EnumType.STRING)
     DaytimeEnum daytimeEnum;
 
-    @NotBlank
     @Enumerated(EnumType.STRING)
     NighttimeEnum nighttimeEnum;
 
-    @NotBlank
     private Integer maxDegrees;
 
-    @NotBlank
     private Integer minDegrees;
 
-    @NotBlank
     private Integer precipitation;
 
-    @NotBlank
     private Integer humidity;
 
-    @NotBlank
     private Integer windSpeed;
 }
