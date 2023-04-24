@@ -14,11 +14,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static br.tec.db.dbcampweatherapi.stubs.EntitiesAndDTOStubs.cityWeatherDateDTOListStub;
-import static br.tec.db.dbcampweatherapi.stubs.EntitiesAndDTOStubs.cityWeatherDateDTOStub;
+import static br.tec.db.dbcampweatherapi.stubs.EntitiesAndDTOStubs.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,6 +39,7 @@ class CityWeatherDateControllerTest {
     }
 
     @Test
+    @DisplayName("Should return a list with all weathers")
     void testFindAll() throws Exception {
 
         when(cityWeatherDateListServiceMock.findAll()).thenReturn(cityWeatherDateDTOListStub());
@@ -58,6 +59,7 @@ class CityWeatherDateControllerTest {
     }
 
     @Test
+    @DisplayName("Should create and return the created weather")
     void testCreate() throws Exception {
 
         when(cityWeatherDateListServiceMock.save(any(CityWeatherDateDTO.class))).thenReturn(cityWeatherDateDTOStub());
@@ -78,4 +80,15 @@ class CityWeatherDateControllerTest {
         verify(cityWeatherDateListServiceMock).save(any(CityWeatherDateDTO.class));
     }
 
+    @Test
+    @DisplayName("Should throw IllegalArgumentException for empty value")
+    void testCreateError() throws Exception {
+        CityWeatherDateDTO emptyWeather = new CityWeatherDateDTO();
+        emptyWeather.setWeatherId(null);
+
+
+        assertThrows(IllegalArgumentException.class, ()-> controllerUnderTest.create(emptyWeather), "All fields must be filled");
+
+        verify(cityWeatherDateListServiceMock, never()).save(any(CityWeatherDateDTO.class));
+    }
 }
