@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
@@ -29,7 +28,7 @@ class StateServiceImplTest {
     ModelMapper modelMapperMock;
 
     @InjectMocks
-    StateServiceImpl classUnderTest;
+    StateServiceImpl serviceUnderTest;
 
     @Test
     @DisplayName("Should return a list with all States")
@@ -37,7 +36,7 @@ class StateServiceImplTest {
         when(stateRepositoryMock.findAll()).thenReturn(stateListStub());
         when(modelMapperMock.map(any(State.class), eq(StateDTO.class))).thenReturn(stateDTOStub());
 
-        List<StateDTO> response = classUnderTest.findAll();
+        List<StateDTO> response = serviceUnderTest.findAll();
 
         assertNotNull(response);
         assertEquals(stateDTOListStub(), response);
