@@ -29,7 +29,7 @@ class CityWeatherDateServiceImplTest {
     ModelMapper modelMapperMock;
 
     @InjectMocks
-    CityWeatherDateServiceImpl classUnderTest;
+    CityWeatherDateServiceImpl serviceUnderTest;
 
     @Test
     @DisplayName("Should return a list with all Weathers")
@@ -38,7 +38,7 @@ class CityWeatherDateServiceImplTest {
         when(cityWeatherDateRepositoryMock.findAll()).thenReturn(cityWeatherDateListStub());
         when(modelMapperMock.map(any(CityWeatherDate.class), eq(CityWeatherDateDTO.class))).thenReturn(cityWeatherDateDTOStub());
 
-        List<CityWeatherDateDTO> result = classUnderTest.findAll();
+        List<CityWeatherDateDTO> result = serviceUnderTest.findAll();
 
         assertNotNull(result);
         assertEquals(cityWeatherDateDTOListStub(), result);
@@ -59,7 +59,7 @@ class CityWeatherDateServiceImplTest {
         when(cityWeatherDateRepositoryMock.save(any(CityWeatherDate.class))).thenReturn(cityWeatherDateStub());
         when(modelMapperMock.map(any(CityWeatherDate.class), eq(CityWeatherDateDTO.class))).thenReturn(cityWeatherDateDTOStub());
 
-        CityWeatherDateDTO result = classUnderTest.save(cityWeatherDateDTOStub());
+        CityWeatherDateDTO result = serviceUnderTest.save(cityWeatherDateDTOStub());
 
         assertNotNull(result);
         assertEquals(cityWeatherDateDTOStub(), result);

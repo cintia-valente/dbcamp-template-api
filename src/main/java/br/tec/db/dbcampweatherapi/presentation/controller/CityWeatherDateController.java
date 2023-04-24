@@ -21,6 +21,7 @@ public class CityWeatherDateController {
     }
 
     @GetMapping("/list-all")
+    @ResponseStatus(HttpStatus.OK)
     public List<CityWeatherDateDTO> findAll(){
 
         return cityWeatherDateListService.findAll();
