@@ -27,6 +27,8 @@ public class CityWeatherDateController {
         return cityWeatherDateListService.findAll();
     }
 
+    @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public CityWeatherDateDTO create(@RequestBody @Validated CityWeatherDateDTO cityWeatherDateDTO){
         if(cityWeatherDateDTO.getWeatherId() == null||
         cityWeatherDateDTO.getCity().getCityId() == null ||
