@@ -1,7 +1,10 @@
 package br.tec.db.dbcampweatherapi.presentation.controller;
 
 import br.tec.db.dbcampweatherapi.business.services.Impl.CityWeatherDateServiceImpl;
+import br.tec.db.dbcampweatherapi.data.entity.DTO.CityDTO;
 import br.tec.db.dbcampweatherapi.data.entity.DTO.CityWeatherDateDTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,8 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static br.tec.db.dbcampweatherapi.stubs.EntitiesAndDTOStubs.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static br.tec.db.dbcampweatherapi.stubs.EntitiesAndDTOStubs.cityWeatherDateDTOListStub;
+import static br.tec.db.dbcampweatherapi.stubs.EntitiesAndDTOStubs.cityWeatherDateDTOStub;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -38,13 +41,14 @@ class CityWeatherDateControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(controllerUnderTest).build();
     }
 
+
+
     @Test
     @DisplayName("Should return a list with all weathers")
     void testFindAll() throws Exception {
 
         when(cityWeatherDateListServiceMock.findAll()).thenReturn(cityWeatherDateDTOListStub());
 
-        // when
         mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/weather/list-all")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -64,18 +68,28 @@ class CityWeatherDateControllerTest {
 
         when(cityWeatherDateListServiceMock.save(any(CityWeatherDateDTO.class))).thenReturn(cityWeatherDateDTOStub());
 
-        // when
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule());
+
+        String valueMapped = mapper.writeValueAsString(cityWeatherDateDTOStub());
+
+        System.out.println(valueMapped);
+
+        String valueMappedWithDate = valueMapped.replace("[2023,5,17]", "\"2023-05-17\"");
+
+        System.out.println(valueMappedWithDate);
+
         mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/weather/register")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"weatherId\": \"ff9e98bd-4290-495b-bd12-4b949ccd1b8f\",\n \"city\": {\n \"cityId\": 9390,\n \"name\": \"Santos\"\n },\n \"date\": \"2023-05-12\",\n \"maxDegrees\": 30.0,\n \"minDegrees\": 8.0,\n \"precipitation\": 0.0,\n \"humidity\": 33.0,\n \"windSpeed\": 10.0\n}"))
+                        .content(valueMappedWithDate))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.weatherId").value(cityWeatherDateDTOStub().getWeatherId().toString()))
                 .andExpect(jsonPath("$.city.cityId").value(cityWeatherDateDTOStub().getCity().getCityId()))
                 .andExpect(jsonPath("$.city.name").value(cityWeatherDateDTOStub().getCity().getName()))
                 .andExpect(jsonPath("$.maxDegrees").value(cityWeatherDateDTOStub().getMaxDegrees()))
-                .andExpect(jsonPath("$.minDegrees").value(cityWeatherDateDTOListStub().get(0).getMinDegrees()))
-                .andExpect(jsonPath("$.precipitation").value(cityWeatherDateDTOListStub().get(0).getPrecipitation()));
+                .andExpect(jsonPath("$.minDegrees").value(cityWeatherDateDTOStub().getMinDegrees()))
+                .andExpect(jsonPath("$.precipitation").value(cityWeatherDateDTOStub().getPrecipitation()));
 
         verify(cityWeatherDateListServiceMock).save(any(CityWeatherDateDTO.class));
     }
@@ -84,10 +98,9 @@ class CityWeatherDateControllerTest {
     @DisplayName("Should throw IllegalArgumentException for empty value")
     void testCreateError() throws Exception {
         CityWeatherDateDTO emptyWeather = new CityWeatherDateDTO();
-        emptyWeather.setWeatherId(null);
+        emptyWeather.setCity(new CityDTO(null, null));
 
-
-        assertThrows(IllegalArgumentException.class, ()-> controllerUnderTest.create(emptyWeather), "All fields must be filled");
+        assertThrows(IllegalArgumentException.class, ()-> controllerUnderTest.create(emptyWeather), "One or more required fields are null");
 
         verify(cityWeatherDateListServiceMock, never()).save(any(CityWeatherDateDTO.class));
     }

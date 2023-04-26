@@ -30,8 +30,7 @@ public class CityWeatherDateController {
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     public CityWeatherDateDTO create(@RequestBody @Validated CityWeatherDateDTO cityWeatherDateDTO){
-        if(cityWeatherDateDTO.getWeatherId() == null||
-        cityWeatherDateDTO.getCity().getCityId() == null ||
+        if(     cityWeatherDateDTO.getCity().getCityId() == null ||
                 cityWeatherDateDTO.getCity().getName().isEmpty() ||
                 cityWeatherDateDTO.getDate() == null ||
                 cityWeatherDateDTO.getMaxDegrees() == null ||
